@@ -1,0 +1,48 @@
+<nav class="navbar navbar-expand-md bg-body-tertiary px-3 border-bottom sticky-top">
+  <div class="container-fluid position-relative d-flex align-items-center">
+
+    <span class="navbar-brand d-flex align-items-center me-0">
+      <img src="/images/Aventra.png" alt="Aventra Logo" height="60" class="navbar-logo">
+    </span>
+
+    <div class="theme-switch-wrapper ms-3">
+      <label class="theme-switch" for="checkbox">
+        <input type="checkbox" id="checkbox" />
+        <div class="slider">
+          <div class="celestial-body"></div>
+        </div>
+      </label>
+    </div>
+
+    <button class="navbar-toggler ms-auto" type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNavAltMarkup"
+      aria-controls="navbarNavAltMarkup"
+      aria-expanded="false"
+      aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="search-container mx-auto">
+        <form class="d-flex search-form-centered" role="search">
+          <div class="input-group search-group">
+            <span class="input-group-text bg-white border-end-0 rounded-pill-start">
+              <i class="fa-solid fa-magnifying-glass"></i>
+            </span>
+            <input 
+              class="form-control border-start-0 rounded-pill-end shadow-none search-inp" 
+              type="search" 
+              placeholder="Search listings..." 
+              aria-label="Search">
+          </div>
+        </form>
+      </div>
+
+      <div class="navbar-nav ms-auto">
+        <a class="nav-link" href="/listings">All Listings</a>
+        <a class="nav-link" href="/listings/new">Add New Listing</a>
+      </div>
+    </div>
+  </div>
+</nav>

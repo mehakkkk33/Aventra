@@ -1,0 +1,110 @@
+<% layout("./layouts/boilerplate") %>
+<div class="row">
+<div class="col-8 offset-2">
+    <br>
+<h3>Create a New Listing</h3>
+<br>
+<form method="POST" action="/listings" novalidate class="needs-validation">
+    <div class="mb-3">
+   <label for="title" class="form-label">Title</label>
+  <input 
+    name="listing[title]" 
+    id="title"
+    placeholder="Enter Title" 
+    type="text"
+    class="form-control"
+    required />
+    <div class="invalid-feedback">Please enter a title.</div>
+    </div>
+
+   <div class="mb-3">
+    <label for="description" class="form-label">Description</label>
+    <textarea 
+    name="listing[description]" 
+    id="description"
+    class="form-control"
+    required
+  ></textarea>
+  <div class="invalid-feedback">Please enter a short description.</div>
+   </div>
+
+  <div class="mb-3">
+    <label for="image" class="form-label">Image Link</label>
+    <input 
+    name="listing[image]" 
+    id="image"
+    placeholder="Enter Image URL/Link" 
+    type="text"
+    class="form-control" />
+  </div>
+ 
+  <div class="row">
+    <div class="mb-3 col-md-4">
+    <label for="price" class="form-label">Price</label>
+    <input 
+    name="listing[price]" 
+    id="price"
+    placeholder="1200" 
+    type="number"
+    class="form-control"
+    required/>
+    <div class="invalid-feedback">Price should be valid.</div>
+  </div>
+
+  <div class="mb-3 col-md-8">
+    <label for="country" class="form-label">Country</label>
+    <input 
+    name="listing[country]" 
+    id="country"
+    placeholder="India" 
+    type="text"
+     class="form-control"
+     required/>
+     <div class="invalid-feedback">Please enter the country.</div>
+  </div>
+  </div>
+  
+  <div class="mb-3">
+    <label for="location" class="form-label">Location</label>
+    <input 
+    name="listing[location]" 
+    id="location"
+    placeholder="Sri Muktsar Sahib, Punjab" 
+    type="text"
+    class="form-control"
+    required/>
+    <div class="invalid-feedback">Location is required.</div>
+  </div> 
+
+  <div class="mb-3">
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" id="terms" required>
+      <label class="form-check-label" for="terms">
+        Agree to terms and conditions
+      </label>
+      <div class="invalid-feedback">You must agree before submitting.</div>
+    </div>
+  </div>
+
+  <button class="btn btn-dark">Add</button>
+<br><br>
+</form>
+<br>
+</div>
+</div>
+
+<script>
+  (() => {
+    'use strict'
+    const forms = document.querySelectorAll('.needs-validation')
+    Array.from(forms).forEach(form => {
+      form.addEventListener('submit', event => {
+        if (!form.checkValidity()) {
+          event.preventDefault()
+          event.stopPropagation()
+        }
+        form.classList.add('was-validated')
+      }, false)
+    })
+  })()
+</script>

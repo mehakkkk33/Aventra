@@ -1,0 +1,89 @@
+<% layout("./layouts/boilerplate") %>
+
+<div class="row">
+  <div class="col-8 offset-2">
+
+    <br>
+    <h3>Edit Listing</h3>
+    <h5><%= listing.title %></h5>
+    <br>
+
+    <form method="POST" action="/listings/<%= listing._id %>?_method=PUT">
+
+      <div class="mb-3">
+        <label for="title" class="form-label">Title</label>
+        <input 
+          name="listing[title]" 
+          type="text" 
+          value="<%= listing.title %>" 
+          class="form-control"
+          required
+        />
+      </div>
+
+      <div class="mb-3">
+        <label for="description" class="form-label">Description</label>
+        <textarea 
+          name="listing[description]" 
+          class="form-control"
+        ><%= listing.description %></textarea>
+      </div>
+
+      <div class="mb-3">
+        <label for="image" class="form-label">Image Link</label>
+        <input 
+          name="listing[image]" 
+          type="text" 
+          value="<%= listing.image %>" 
+          class="form-control"
+          required
+        />
+      </div>
+
+      <div class="row">
+        <div class="mb-3 col-md-4">
+          <label for="price" class="form-label">Price</label>
+          <input 
+            name="listing[price]" 
+            type="number" 
+            value="<%= listing.price %>" 
+            class="form-control"
+            required
+          />
+        </div>
+
+        <div class="mb-3 col-md-8">
+          <label for="country" class="form-label">Country</label>
+          <input 
+            name="listing[country]" 
+            type="text" 
+            value="<%= listing.country %>" 
+            class="form-control"
+            required
+          />
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="location" class="form-label">Location</label>
+        <input 
+          name="listing[location]" 
+          type="text" 
+          value="<%= listing.location %>" 
+          class="form-control"
+          required
+        />
+      </div>
+
+      <button class="btn btn-dark edit-btn">Save Changes</button>
+      <br><br>
+
+    </form>
+
+    <a href="/listings/<%= listing._id %>">Cancel</a>
+    <br><br>
+    <a href="/listings">Back to Listings</a>
+    <br><br>
+
+  </div>
+</div>

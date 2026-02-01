@@ -5,10 +5,12 @@ const path = require("path");
 const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
 const ExpressError = require("./utils/ExpressError.js");
+const session = require("express-session");
 
 
 const listings = require("./routes/listing.js");
 const reviews = require("./routes/review.js");
+
 
 const MONGO_URL = "mongodb://127.0.0.1:27017/wandernest";
 
@@ -30,11 +32,19 @@ app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 app.use(express.static(path.join(__dirname, "/public")));
 
+const sessionOptions = {
+  secret : "mysupersecretcode",
+  resave : false,
+  saveUninitialized :true
+};
+
+app.use(session(sessionOptions));
+
+
 // ROOT ROUTE
 app.get("/", (req, res) => {
   res.send("Hi, I am root");
 });
-
 
 
 app.use("/listings", listings);

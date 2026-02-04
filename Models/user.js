@@ -1,14 +1,16 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-const passportLocalMongoose = require("passport-local-mongoose");
+// Change this line:
+const passportLocalMongoose = require("passport-local-mongoose").default || require("passport-local-mongoose");
 
 const userSchema = new Schema({
-    email: {
-        type : string,
-        required : true
-    },
+  email: {
+    type: String,
+    required: true,
+  }
 });
 
-User.plugin(passportLocalMongoose);
+// This will now receive the function correctly
+userSchema.plugin(passportLocalMongoose);
 
-module.exports = mongoose.model('User', 'userSchema');
+module.exports = mongoose.model("User", userSchema);

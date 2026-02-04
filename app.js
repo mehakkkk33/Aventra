@@ -7,14 +7,18 @@ const ejsMate = require("ejs-mate");
 const ExpressError = require("./utils/ExpressError.js");
 const session = require("express-session");
 const flash = require("connect-flash");
+const passport = require("passport");
+const LocalStrategy = require("passport-local");
 
+// ✅ FIXED: Capital U
+const User = require("./Models/user.js");
 
 const listings = require("./routes/listing.js");
 const reviews = require("./routes/review.js");
 
-
 const MONGO_URL = "mongodb://127.0.0.1:27017/wandernest";
 
+// DB CONNECTION
 main()
   .then(() => {
     console.log("Connected to db");
@@ -25,55 +29,79 @@ async function main() {
   await mongoose.connect(MONGO_URL);
 }
 
-// MIDDLEWARE (IMPORTANT ORDER)
+// VIEW ENGINE
 app.engine("ejs", ejsMate);
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
+
+// MIDDLEWARE
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 app.use(express.static(path.join(__dirname, "/public")));
 
+// SESSION
 const sessionOptions = {
-  secret : "mysupersecretcode",
-  resave : false,
-  saveUninitialized :true,
+  secret: "mysupersecretcode",
+  resave: false,
+  saveUninitialized: true,
   cookie: {
     expires: Date.now() + 7 * 24 * 60 * 60 * 1000,
-    maxAge:  7 * 24 * 60 * 60 * 1000,
+    maxAge: 7 * 24 * 60 * 60 * 1000,
     httpOnly: true,
   }
 };
 
-// ROOT ROUTE
+app.use(session(sessionOptions));
+app.use(flash());
+
+// PASSPORT
+app.use(passport.initialize());
+app.use(passport.session());
+
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+// FLASH LOCALS
+app.use((req, res, next) => {
+  res.locals.success = req.flash("success");
+  res.locals.error = req.flash("error");
+  next();
+});
+
+// ROOT
 app.get("/", (req, res) => {
   res.send("Hi, I am root");
 });
 
+// DEMO USER
+app.get("/demouser", async (req, res) => {
+  let fakeUser = new User({
+    email: "student@gmail.com",
+    username: "delta-student"
+  });
 
-app.use(session(sessionOptions));
-app.use(flash());
+  let registeredUser = await User.register(fakeUser, "MehakBatra");
+  res.send(registeredUser);
+});
 
-app.use((req,res, next) => {
-  res.locals.success =req.flash("success");
-  res.locals.error =req.flash("error");
-  next();
-})
-
+// ROUTES
 app.use("/listings", listings);
-app.use("/listings/:id/reviews", reviews)
+app.use("/listings/:id/reviews", reviews);
 
-
+// 404
 app.use((req, res, next) => {
   next(new ExpressError(404, "Page not found!"));
 });
 
+// ERROR HANDLER
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
   const message = statusCode === 500 ? "Something went wrong!" : err.message;
   res.status(statusCode).render("error", { statusCode, message });
 });
 
-
+// SERVER
 app.listen(8080, () => {
   console.log("Server is listening on port 8080");
 });

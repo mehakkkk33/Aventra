@@ -10,7 +10,6 @@ const userSchema = new Schema({
   }
 });
 
-// This will now receive the function correctly
 userSchema.plugin(passportLocalMongoose);
 
 module.exports = mongoose.model("User", userSchema);

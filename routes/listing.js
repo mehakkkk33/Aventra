@@ -4,7 +4,7 @@ const wrapAsync = require("../utils/wrapAsync.js");
 const ExpressError = require("../utils/ExpressError.js");
 const { listingSchema } = require("../schema.js");
 const Listing = require("../Models/listing.js");
-const {isLoggedIn} = require("../middleware.js");
+const {isLoggedIn, isOwner} = require("../middleware.js");
 
 
 const validateListing = (req, res, next) => {
@@ -55,7 +55,7 @@ router.get("/:id", wrapAsync(async (req, res) => {
 
 
 // EDIT ROUTE
-router.get("/:id/edit",isLoggedIn , wrapAsync(async (req, res) => {
+router.get("/:id/edit",isLoggedIn ,isOwner, wrapAsync(async (req, res) => {
   const { id } = req.params;
   const listing = await Listing.findById(id);
   res.render("listings/edit", { listing });
@@ -63,22 +63,26 @@ router.get("/:id/edit",isLoggedIn , wrapAsync(async (req, res) => {
 
 
 // UPDATE ROUTE
-router.put("/:id", isLoggedIn ,wrapAsync(async (req, res) => {
+router.put("/:id", isLoggedIn, isOwner, wrapAsync(async (req, res) => {
   const { id } = req.params;
+
+  // 1. Fetch the existing listing first
   let listing = await Listing.findById(id);
-  // keep old image if new not provided
+
+  // 2. IMAGE FALLBACK LOGIC
+  // If the user didn't provide a new image URL, keep the old one
   if (!req.body.listing.image || !req.body.listing.image.url) {
     req.body.listing.image = listing.image;
   }
 
-  await Listing.findByIdAndUpdate(id, req.body.listing);
-  req.flash("success", "  Listing updated successfully!");
-  res.redirect("/listings");
+  // 3. Perform the update
+  await Listing.findByIdAndUpdate(id, { ...req.body.listing });
+
+  req.flash("success", "Listing updated!");
+  res.redirect(`/listings/${id}`);
 }));
-
-
 // DELETE ROUTE
-router.delete("/:id", isLoggedIn ,wrapAsync(async (req, res) => {
+router.delete("/:id", isLoggedIn ,isOwner, wrapAsync(async (req, res) => {
   const { id } = req.params;
   await Listing.findByIdAndDelete(id);
   console.log("Deleted Listing");

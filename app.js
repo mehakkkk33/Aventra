@@ -99,7 +99,9 @@ app.use((req, res, next) => {
 // ERROR HANDLER
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
-  const message = statusCode === 500 ? "Something went wrong!" : err.message;
+  const message = err.message;
+console.log(err);
+
   res.status(statusCode).render("error", { statusCode, message });
 });
 

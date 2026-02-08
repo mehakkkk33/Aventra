@@ -37,3 +37,29 @@ module.exports.isOwner = async (req, res, next) => {
 
     next();
 };
+
+
+
+const Review = require("./Models/review");
+
+// Check if the current user is the author of the review
+module.exports.isReviewAuthor = async (req, res, next) => {
+  let { reviewId, id } = req.params;
+
+  // Find review
+  let review = await Review.findById(reviewId);
+
+  // Guard clause: review exists?
+  if (!review || !review.author) {
+    req.flash("error", "Review not found or has no author.");
+    return res.redirect(`/listings/${id}`);
+  }
+
+  // Authorization check
+  if (!review.author.equals(res.locals.currUser._id)) {
+    req.flash("error", "You can't delete this review because you're not the author of this review!");
+    return res.redirect(`/listings/${id}`);
+  }
+
+  next();
+};

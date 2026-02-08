@@ -45,7 +45,11 @@ router.post(
 // SHOW ROUTE
 router.get("/:id", wrapAsync(async (req, res) => {
   const { id } = req.params;
-  const listing = await Listing.findById(id).populate("reviews").populate("owner");
+  const listing = await Listing.findById(id)
+  .populate({path : "reviews", populate:{
+    path: "author",
+  }})
+  .populate("owner");
   if(!listing){
     req.flash("error", "Listing which you are trying to reach does not exist!");
     res.redirect("/listings");
@@ -65,16 +69,12 @@ router.get("/:id/edit",isLoggedIn ,isOwner, wrapAsync(async (req, res) => {
 // UPDATE ROUTE
 router.put("/:id", isLoggedIn, isOwner, wrapAsync(async (req, res) => {
   const { id } = req.params;
-
-  // 1. Fetch the existing listing first
   let listing = await Listing.findById(id);
-
   // 2. IMAGE FALLBACK LOGIC
   // If the user didn't provide a new image URL, keep the old one
   if (!req.body.listing.image || !req.body.listing.image.url) {
     req.body.listing.image = listing.image;
   }
-
   // 3. Perform the update
   await Listing.findByIdAndUpdate(id, { ...req.body.listing });
 

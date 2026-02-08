@@ -12,12 +12,15 @@ async function main() {
 main().catch(err => console.log(err));
 
 const initDB = async () => {
-  // DELETE OLD DATA FROM DATABASE
-  await Listing.deleteMany({});  
-  console.log("Old data removed");
+  await Listing.deleteMany({});
 
-  // INSERT NEW DATA FROM data.js
-  await Listing.insertMany(initData.data);
+  const newData = initData.data.map((obj) => ({
+    ...obj,
+    owner: new mongoose.Types.ObjectId("698707de56d24ca9a1f62fcb"),
+  }));
+
+  await Listing.insertMany(newData);
+
   console.log("New data added");
 };
 

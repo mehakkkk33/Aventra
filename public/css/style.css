@@ -367,8 +367,8 @@ input:checked + .slider .celestial-body::before {
 }
 
 [data-bs-theme="dark"] .nav-link:hover {
-    color: #bc13fe !important; /* Neon Purple Hover */
-    text-shadow: 0 0 8px #bc13fe;
+    color: #6aeaf1 !important; /* Neon Purple Hover */
+    text-shadow: 0 0 8px #6fdaec;
 }
 
 /* ===== SEARCH BAR ===== */
@@ -398,8 +398,8 @@ input:checked + .slider .celestial-body::before {
 }
 
 [data-bs-theme="dark"] .card:hover {
-    border-color: #bc13fe !important; /* Purple Hover */
-    box-shadow: 0 0 28px rgba(188, 19, 254, 0.5);
+    border-color: #76b4f6 !important; /* Purple Hover */
+    box-shadow: 0 0 28px rgba(125, 207, 216, 0.5);
     transform: translateY(-5px) scale(1.02);
 }
 

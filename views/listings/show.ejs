@@ -19,13 +19,16 @@
       <p>₹<%= Number(listing.price).toLocaleString("en-IN") %></p>
       <p><%= listing.location %></p>
       <p><%= listing.country %></p>
-
+ </div>
+ <br>
+ <% if (currUser && listing.owner && currUser._id.toString() === listing.owner._id.toString()) { %>
+  <div>
       <a href="/listings/<%= listing._id %>/edit" class="btn btn-dark btn-sm me-2">Edit</a>
-      <a href="/listings" class="btn btn-dark btn-sm me-2">Back</a>
       <form method="POST" action="/listings/<%= listing._id %>?_method=DELETE" class="d-inline">
-        <button class="btn btn-dark btn-sm">Delete</button>
+        <button class="btn btn-dark btn-sm">Delete</a>
       </form>
-    </div>
+  </div>
+<% } %>
 
     <div class="col-8 offset-2 text-center">
       <h4 class="mb-3">Leave a Review</h4>

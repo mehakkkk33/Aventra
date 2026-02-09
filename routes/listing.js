@@ -7,6 +7,9 @@ const Listing = require("../Models/listing.js");
 const {isLoggedIn, isOwner} = require("../middleware.js");
 
 
+const ListingController = require("../controllers/listing.js");
+
+
 const validateListing = (req, res, next) => {
   const { error } = listingSchema.validate(req.body);
   if (error) {
@@ -17,10 +20,7 @@ const validateListing = (req, res, next) => {
 
 
 // INDEX ROUTE
-router.get("/", wrapAsync(async (req, res) => {
-  const allListings = await Listing.find({});
-  res.render("listings/index", { allListings });
-}));
+router.get("/", wrapAsync(ListingController.index));
 
 
 // NEW ROUTE

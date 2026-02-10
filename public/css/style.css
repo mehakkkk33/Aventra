@@ -193,7 +193,6 @@ border-top: 1px solid rgba(255,255,255,0.2);
 }
 
 
-/* SHOW PAGE IMAGE WITH ZOOM */
 .show-img {
   width: 100%;
   border-radius: 1rem;
@@ -426,7 +425,7 @@ input:checked + .slider .celestial-body::before {
 [data-bs-theme="dark"] select {
     background-color: #0d0d0d !important;
     color: #e8eaed !important;
-    border: 1px solid #334155 !important;
+    border: 1px solid #3d4c62 !important;
 }
 
 /* ===== GENERAL HEADINGS ===== */

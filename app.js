@@ -1,3 +1,7 @@
+require("dotenv").config();   // Load env first
+
+console.log(process.env.CLOUD_API_KEY); // Debug
+console.log(process.env);
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");

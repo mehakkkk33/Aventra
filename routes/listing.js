@@ -22,17 +22,12 @@ const validateListing = (req, res, next) => {
 
 router.route("/")
 .get(wrapAsync(ListingController.index))
-
-// .post(validateListing,isLoggedIn ,
-//   wrapAsync(ListingController.createListing)
-// );
 .post(
-  upload.single('listing[image]'),
-  (req, res) => {
-    console.log(req.file);
-    res.send(req.file);
-
-  }
+ 
+  isLoggedIn ,
+upload.single('listing[image]'),
+ validateListing,
+wrapAsync(ListingController.createListing)
 );
 
 

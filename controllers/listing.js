@@ -1,29 +1,27 @@
 const Listing = require("../Models/listing");
 
 
-// INDEX — Show all listings
+// INDEX
 module.exports.index = async (req, res) => {
   const allListings = await Listing.find({});
   res.render("listings/index", { allListings });
 };
 
 
-// NEW — Render new listing form
+// NEW FORM
 module.exports.renderNewForm = (req, res) => {
   res.render("listings/new");
 };
 
 
-// SHOW — Show single listing
+// SHOW
 module.exports.showListing = async (req, res) => {
   const { id } = req.params;
 
   const listing = await Listing.findById(id)
     .populate({
       path: "reviews",
-      populate: {
-        path: "author",
-      },
+      populate: { path: "author" },
     })
     .populate("owner");
 
@@ -39,17 +37,14 @@ module.exports.showListing = async (req, res) => {
 };
 
 
-// CREATE — Create new listing
+// CREATE
 module.exports.createListing = async (req, res) => {
   let url = req.file.path;
   let filename = req.file.filename;
 
   const newListing = new Listing(req.body.listing);
 
-  // 🔥 FIX ADDED — Save owner of listing
   newListing.owner = req.user._id;
-
-  // Save image
   newListing.image = { url, filename };
 
   await newListing.save();
@@ -59,7 +54,7 @@ module.exports.createListing = async (req, res) => {
 };
 
 
-// EDIT — Render edit form
+// EDIT FORM
 module.exports.renderEditForm = async (req, res) => {
   const { id } = req.params;
 
@@ -74,32 +69,39 @@ module.exports.renderEditForm = async (req, res) => {
 };
 
 
-// UPDATE — Update listing
+// UPDATE
 module.exports.updateListing = async (req, res) => {
   const { id } = req.params;
 
-  let listing = await Listing.findById(id);
-
-  // IMAGE FALLBACK LOGIC
-  // If user didn't give new image → keep old image
-  if (!req.body.listing.image || !req.body.listing.image.url) {
-    req.body.listing.image = listing.image;
+  if (!req.body.listing) {
+    req.flash("error", "Invalid data.");
+    return res.redirect(`/listings/${id}`);
   }
 
-  await Listing.findByIdAndUpdate(id, { ...req.body.listing });
+  let listing = await Listing.findByIdAndUpdate(
+    id,
+    { ...req.body.listing },
+    { new: true }
+  );
+
+  if (req.file) {
+    let url = req.file.path;
+    let filename = req.file.filename;
+
+    listing.image = { url, filename };
+    await listing.save();
+  }
 
   req.flash("success", "Listing updated!");
   res.redirect(`/listings/${id}`);
 };
 
 
-// DELETE — Destroy listing
+// DELETE
 module.exports.destroyListing = async (req, res) => {
   const { id } = req.params;
 
   await Listing.findByIdAndDelete(id);
-
-  console.log("Deleted Listing");
 
   req.flash("success", "Listing deleted!");
   res.redirect("/listings");

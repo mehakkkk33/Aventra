@@ -8,10 +8,15 @@
     <h5><%= listing.title %></h5>
     <br>
 
-    <form method="POST" action="/listings/<%= listing._id %>?_method=PUT">
+    <form 
+      method="POST" 
+      action="/listings/<%= listing._id %>?_method=PUT"
+      enctype="multipart/form-data"
+    >
 
+      <!-- TITLE -->
       <div class="mb-3">
-        <label for="title" class="form-label">Title</label>
+        <label class="form-label">Title</label>
         <input 
           name="listing[title]" 
           type="text" 
@@ -21,28 +26,47 @@
         />
       </div>
 
+
+      <!-- DESCRIPTION -->
       <div class="mb-3">
-        <label for="description" class="form-label">Description</label>
+        <label class="form-label">Description</label>
         <textarea 
           name="listing[description]" 
           class="form-control"
         ><%= listing.description %></textarea>
       </div>
 
+
+      <!-- CURRENT IMAGE -->
       <div class="mb-3">
-        <label for="image" class="form-label">Image Link</label>
-        <input 
-          name="listing[image]" 
-          type="text" 
-          value="<%= listing.image %>" 
-          class="form-control"
-          required
+        <label class="form-label">Current Image</label><br>
+
+        <img 
+          src="<%= listing.image.url %>" 
+          width="250"
+          class="mb-2"
         />
       </div>
 
+
+      <!-- NEW IMAGE -->
+      <div class="mb-3">
+        <label class="form-label">Upload New Image</label>
+
+        <!-- 🔥 CHANGED NAME -->
+        <input 
+          type="file" 
+          name="image"
+          class="form-control"
+        />
+      </div>
+
+
+      <!-- PRICE + COUNTRY -->
       <div class="row">
+
         <div class="mb-3 col-md-4">
-          <label for="price" class="form-label">Price</label>
+          <label class="form-label">Price</label>
           <input 
             name="listing[price]" 
             type="number" 
@@ -53,7 +77,7 @@
         </div>
 
         <div class="mb-3 col-md-8">
-          <label for="country" class="form-label">Country</label>
+          <label class="form-label">Country</label>
           <input 
             name="listing[country]" 
             type="text" 
@@ -62,10 +86,13 @@
             required
           />
         </div>
+
       </div>
 
+
+      <!-- LOCATION -->
       <div class="mb-3">
-        <label for="location" class="form-label">Location</label>
+        <label class="form-label">Location</label>
         <input 
           name="listing[location]" 
           type="text" 
@@ -75,15 +102,19 @@
         />
       </div>
 
-      <button class="btn btn-dark edit-btn">Save Changes</button>
+
+      <button class="btn btn-dark">
+        Save Changes
+      </button>
+
       <br><br>
 
     </form>
 
     <a href="/listings/<%= listing._id %>">Cancel</a>
     <br><br>
+
     <a href="/listings">Back to Listings</a>
-    <br><br>
 
   </div>
 </div>

@@ -5,23 +5,7 @@
       <img src="/images/Aventra.png" alt="Aventra Logo" height="60" class="navbar-logo">
     </span>
 
-    <div class="theme-switch-wrapper ms-3">
-      <label class="theme-switch" for="checkbox">
-        <input type="checkbox" id="checkbox" />
-        <div class="slider">
-          <div class="celestial-body"></div>
-        </div>
-      </label>
-    </div>
-
-    <button class="navbar-toggler ms-auto" type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#navbarNavAltMarkup"
-      aria-controls="navbarNavAltMarkup"
-      aria-expanded="false"
-      aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+   
 
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="search-container mx-auto">
@@ -40,14 +24,32 @@
       </div>
 
       <div class="navbar-nav ">
-        <a class="nav-link" href="/listings">All Listings</a>
-        <a class="nav-link" href="/listings/new">Add New Listing</a>
+        <a class="nav-link" href="/listings">Explore</a>
+        <a class="nav-link" href="/listings/new">Add Your Rental</a>
       </div>
     
         <div class="navbar-nav ms-auto">
+           <div class="theme-switch-wrapper ms-3">
+      <label class="theme-switch" for="checkbox">
+        <input type="checkbox" id="checkbox" />
+        <div class="slider">
+          <div class="celestial-body"></div>
+        </div>
+      </label>
+    </div>
+
+    <button class="navbar-toggler ms-auto" type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNavAltMarkup"
+      aria-controls="navbarNavAltMarkup"
+      aria-expanded="false"
+      aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    
           <% if(!currUser) { %>
-          <a class="nav-link" href="/signup"> Sign up</a>
-        <a class="nav-link" href="/login">Login</a>
+          <a class="nav-link" href="/signup"> <b>Sign up</b></a>
+        <a class="nav-link" href="/login"><b>Login</b></a>
         <% } %>
          <% if(currUser) { %>
         <a class="nav-link" href="/logout">Log out</a>

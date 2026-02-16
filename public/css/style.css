@@ -11,6 +11,9 @@ body {
 background: #020024; /* Fallback */
     background: linear-gradient(270deg, rgba(2,0,36,1) 0%, rgb(20, 20, 140) 35%, rgb(22, 197, 232) 100%);
 }
+.navbar a {
+  margin-left: 1rem;
+}
 
 
 .container{

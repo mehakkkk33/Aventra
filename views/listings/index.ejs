@@ -1,8 +1,139 @@
 <% layout("./layouts/boilerplate") %>
 
+<style>
+/* ===== FILTER BAR CONTAINER ===== */
+#filters {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  overflow-x: auto;
+  padding: 1rem 2rem;
+  border-bottom: 1px solid #eee;
+  background: #ffffff;
+  scrollbar-width: none; /* Firefox */
+}
+
+#filters::-webkit-scrollbar {
+  display: none; /* Chrome */
+}
+
+/* ===== EACH FILTER ===== */
+.filter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 80px;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: all 0.3s ease;
+}
+
+/* ICON STYLE */
+.filter i {
+  font-size: 1.4rem;
+  margin-bottom: 0.4rem;
+  color: #555;
+}
+
+/* TEXT */
+.filter p {
+  font-size: 0.75rem;
+  margin: 0;
+  font-weight: 500;
+  color: #555;
+}
+
+/* HOVER EFFECT */
+.filter:hover {
+  opacity: 1;
+  transform: translateY(-2px);
+}
+
+.filter:hover i,
+.filter:hover p {
+  color: #000;
+}
+
+/* ACTIVE FILTER */
+.filter.active {
+  opacity: 1;
+  border-bottom: 2px solid #000;
+  padding-bottom: 0.3rem;
+}
+
+</style>
+
+<!-- ===== FILTERS BAR ===== -->
+
+<div id="filters">
+
+  <div class="filter active">
+    <i class="fa-solid fa-fire"></i>
+    <p>Trending</p>
+  </div>
+
+  <div class="filter">
+    <i class="fa-solid fa-bed"></i>
+    <p>Rooms</p>
+  </div>
+
+  <div class="filter">
+    <i class="fa-solid fa-mountain"></i>
+    <p>Mountains</p>
+  </div>
+
+  <div class="filter">
+    <i class="fa-solid fa-water"></i>
+    <p>Beachfront</p>
+  </div>
+
+  <div class="filter">
+    <i class="fa-solid fa-tree"></i>
+    <p>Forest</p>
+  </div>
+
+  <div class="filter">
+    <i class="fa-solid fa-city"></i>
+    <p>City</p>
+  </div>
+
+  <div class="filter">
+    <i class="fa-solid fa-snowflake"></i>
+    <p>Arctic</p>
+  </div>
+
+  <div class="filter">
+    <i class="fa-solid fa-campground"></i>
+    <p>Camping</p>
+  </div>
+
+  <div class="filter">
+    <i class="fa-solid fa-umbrella-beach"></i>
+    <p>Tropical</p>
+  </div>
+
+  <div class="filter">
+    <i class="fa-solid fa-house"></i>
+    <p>Villas</p>
+  </div>
+
+  <div class="filter">
+    <i class="fa-solid fa-building"></i>
+    <p>Apartments</p>
+  </div>
+
+  <div class="filter">
+    <i class="fa-solid fa-igloo"></i>
+    <p>Unique</p>
+  </div>
+
+</div>
+
+
 <form method="GET" action="/listings/new">
   </form>
-<div class="row gx-2 gy-3">
+<div class="row gx-2 gy-3 mt-4">
   <% for (let listing of allListings) { %>
     <div class="col-3">
       <a href="/listings/<%= listing._id%>"  class = "listing-link" style="color: inherit;">

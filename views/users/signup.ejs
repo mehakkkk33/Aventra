@@ -1,39 +1,85 @@
 <% layout("layouts/boilerplate") %>
 
-<div class="row mt-3">
-    <h1 class="col-6 offset-3">SignUp on Aventra</h1>
-    <div class="col-6 offset-3" >
-        <form action="/signup" method="POST" class="needs-validation" novalidate>
-             <div class="mb-3">
-                <label for="username" class="form-label">Username</label>
-                <input 
-                 name="username" 
-                 id="username"
-                 type="text"
-                 class="form-control"
-                 required />
-                <div class="valid-feedback">Looks good</div>
-            </div>
-            <div class="mb-3">
-                <label for="email" class="form-label">Email</label>
-                <input 
-                 name="email" 
-                 id="email"
-                 type="email"
-                 class="form-control"
-                 required />
-            </div>
-              <div class="mb-3">
-                <label for="password" class="form-label">Password</label>
-                <input 
-                 name="password" 
-                 id="password"
-                 type="password"
-                 class="form-control"
-                 required />
-            </div>
-            <button class="btn btn-success">SignUp</button>
+<style>
+    .signup-container {
+        min-height: 80vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .signup-card {
+        border: none;
+        border-radius: 1rem;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+    }
+    .signup-image {
+    background: url('/images/signup.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 400px;
+}
 
-        </form>
+    .form-section {
+        padding: 3rem;
+        background-color: #fff;
+    }
+    .btn-adventure {
+        background-color: #5542fe;
+        color: white;
+        border: none;
+        padding: 0.75rem;
+        font-weight: 600;
+        transition: 0.3s;
+    }
+    .btn-adventure:hover {
+        background-color: #5d32d3;
+        color: white;
+        transform: translateY(-2px);
+    }
+</style>
+
+<div class="container signup-container">
+    <div class="card signup-card col-lg-10 col-md-12 p-0">
+        <div class="row g-0">
+            <div class="col-md-6 d-none d-md-block signup-image">
+                <div class="h-100 d-flex flex-column justify-content-end p-4 text-white" style="background: linear-gradient(transparent, rgba(0,0,0,0.6));">
+                    <h3>Your journey begins here.</h3>
+                    <p>Join Aventra and explore the world's hidden gems.</p>
+                </div>
+            </div>
+
+            <div class="col-md-6 form-section">
+                <h2 class="mb-4 fw-bold">Sign Up on Aventra</h2>
+                <form action="/signup" method="POST" class="needs-validation" novalidate>
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Username</label>
+                        <input name="username" id="username" type="text" class="form-control shadow-sm" placeholder="Choose a traveler name" required />
+                        <div class="invalid-feedback">Please enter a username.</div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input name="email" id="email" type="email" class="form-control shadow-sm" placeholder="nature@example.com" required />
+                        <div class="invalid-feedback">Please provide a valid email.</div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="password" class="form-label">Password</label>
+                        <input name="password" id="password" type="password" class="form-control shadow-sm" placeholder="••••••••" required />
+                        <div class="invalid-feedback">Choose a strong password.</div>
+                    </div>
+
+                    <div class="d-grid">
+                        <button class="btn btn-adventure btn-lg">Start Exploring</button>
+                    </div>
+
+                    <p class="text-center mt-4 text-muted">
+                        Already have an account? <a href="/login" class="text-decoration-none" style="color: #2b4583;">Log in</a>
+                    </p>
+                </form>
+            </div>
+        </div>
     </div>
 </div>

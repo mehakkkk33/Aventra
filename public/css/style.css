@@ -88,25 +88,24 @@ border-top: 1px solid rgba(255,255,255,0.2);
 
 /* CARDS */ 
 .card {
-  /* Layout & Spacing */
-  margin-bottom: 5rem !important; 
+  margin-bottom: 1rem !important;   /* less vertical gap */
   margin-right: 1rem;
-  display: flex; 
+  display: flex;
   flex-direction: column;
-  padding: 0.8rem; /* Creates the margin around the image */
-  
-  /* White Framed Look */
-  background: #ffffff !important; 
-  border: 2px solid #f0f0f0 !important; 
-  border-radius: 2rem; 
-  
-  /* Initial 3D state */
+
+  padding: 0.6rem;   /* reduced from 0.8rem */
+
+  background: #ffffff !important;
+  border: 2px solid #f0f0f0 !important;
+  border-radius: 2rem;
+
   transform: translateY(0) scale(1);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05); 
-  
-  /* Smooth transition for the whole card */
-  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); 
-  overflow: hidden; /* Changed back to hidden to keep the image perfectly clipped */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+
+  overflow: hidden;
+
+  height: auto;        /* IMPORTANT */
 }
 
 .card-img-top {
@@ -181,8 +180,10 @@ border-top: 1px solid rgba(255,255,255,0.2);
 
 .card-text p {
   font-weight: 400;
-  margin-bottom: 0.5rem !important;
+  margin-bottom: 0.2rem !important;
 }
+
+
 
 .listing-link{
   text-decoration: none;

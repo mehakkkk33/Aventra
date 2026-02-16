@@ -14,66 +14,57 @@ const { storage } = require("../cloudConfig.js");
 
 const upload = multer({ storage });
 
-
-// ---------------- VALIDATION ----------------
+// ================= VALIDATION =================
 const validateListing = (req, res, next) => {
-  const { error } = listingSchema.validate(req.body);
+const { error } = listingSchema.validate(req.body);
 
-  if (error) {
-    throw new ExpressError(400, error);
-  }
+if (error) {
+throw new ExpressError(400, error);
+}
 
-  next();
+next();
 };
 
-
-// ---------------- INDEX + CREATE ----------------
+// ================= INDEX + CREATE =================
 router
-  .route("/")
-  .get(wrapAsync(ListingController.index))
-  .post(
-    isLoggedIn,
-    upload.single("listing[image]"),   // Create upload
-    validateListing,
-    wrapAsync(ListingController.createListing)
-  );
-
-
-// ---------------- NEW FORM ----------------
-router.get(
-  "/new",
-  isLoggedIn,
-  ListingController.renderNewForm
+.route("/")
+.get(wrapAsync(ListingController.index))
+.post(
+isLoggedIn,
+upload.single("listing[image]"),
+validateListing,
+wrapAsync(ListingController.createListing)
 );
 
-
-// ---------------- SHOW + UPDATE + DELETE ----------------
-router
-  .route("/:id")
-  .get(wrapAsync(ListingController.showListing))
-
-  // 🔥 FIX ADDED HERE
-  .put(
-    isLoggedIn,
-    isOwner,
-    upload.single("image"),   // Edit upload
-    wrapAsync(ListingController.updateListing)
-  )
-
-  .delete(
-    isLoggedIn,
-    isOwner,
-    wrapAsync(ListingController.destroyListing)
-  );
-
-
-// ---------------- EDIT FORM ----------------
+// ================= NEW FORM =================
 router.get(
-  "/:id/edit",
-  isLoggedIn,
-  isOwner,
-  wrapAsync(ListingController.renderEditForm)
+"/new",
+isLoggedIn,
+ListingController.renderNewForm
 );
 
+// ================= SHOW + UPDATE + DELETE =================
+router
+.route("/:id")
+.get(wrapAsync(ListingController.showListing))
+.put(
+isLoggedIn,
+isOwner,
+upload.single("listing[image]"),   // Fixed
+wrapAsync(ListingController.updateListing)
+)
+.delete(
+isLoggedIn,
+isOwner,
+wrapAsync(ListingController.destroyListing)
+);
+
+// ================= EDIT FORM =================
+router.get(
+"/:id/edit",
+isLoggedIn,
+isOwner,
+wrapAsync(ListingController.renderEditForm)
+);
 
 module.exports = router;

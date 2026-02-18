@@ -1,155 +1,321 @@
 <% layout("./layouts/boilerplate") %>
 
 <style>
-/* ===== FILTER BAR CONTAINER ===== */
+
+/* ===== PAGE CONTAINER (LEFT-RIGHT SPACE FIX) ===== */
+.page-container{
+  padding: 0 0.2rem;          /* space from left & right */
+  max-width: 1400px;
+ 
+}
+
+/* ===== FILTER + TAX ROW ===== */
+.filter-tax-wrapper{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  border-bottom: 1px solid #eee;
+  padding: 1rem 0;
+}
+
+/* ===== FILTER BAR ===== */
 #filters {
   display: flex;
   align-items: center;
   gap: 2rem;
   overflow-x: auto;
-  padding: 1rem 2rem;
-  border-bottom: 1px solid #eee;
-  background: #ffffff;
-  scrollbar-width: none; /* Firefox */
+  scrollbar-width: none;
 }
 
 #filters::-webkit-scrollbar {
-  display: none; /* Chrome */
+  display: none;
 }
 
-/* ===== EACH FILTER ===== */
+/* ===== FILTER ===== */
 .filter {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   min-width: 80px;
   cursor: pointer;
   opacity: 0.7;
-  transition: all 0.3s ease;
+  transition: 0.3s;
 }
 
-/* ICON STYLE */
 .filter i {
   font-size: 1.4rem;
   margin-bottom: 0.4rem;
   color: #555;
 }
 
-/* TEXT */
 .filter p {
   font-size: 0.75rem;
   margin: 0;
   font-weight: 500;
-  color: #555;
 }
 
-/* HOVER EFFECT */
 .filter:hover {
   opacity: 1;
   transform: translateY(-2px);
 }
 
-.filter:hover i,
-.filter:hover p {
-  color: #000;
-}
-
-/* ACTIVE FILTER */
 .filter.active {
   opacity: 1;
   border-bottom: 2px solid #000;
-  padding-bottom: 0.3rem;
+}
+
+/* ===== TAX TOGGLE (SHIFTED LEFT) ===== */
+.tax-toggle-box {
+  border: 1px solid #e0e0e0;
+  border-radius: 30px;
+  padding: 6px 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #fff;
+  white-space: nowrap;
+}
+
+.tax-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+/* SWITCH SIZE */
+.form-check-input {
+  width: 2.6rem !important;
+  height: 1.3rem !important;
+  cursor: pointer;
+}
+
+.form-check-input:checked {
+  background-color: #fe424d;
+  border-color: #fe424d;
+}
+
+/* ===== CARDS ===== */
+.listing-card img{
+  height: 14rem;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.card{
+  border-radius: 15px;
+  overflow: hidden;
+  transition: 0.3s;
+}
+
+.card:hover{
+  transform: scale(1.02);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+
+.tax-info{
+  display: none;
+  color: green;
+  font-weight: 600;
+  font-size: 0.85rem;
 }
 
 </style>
 
-<!-- ===== FILTERS BAR ===== -->
+<div class="page-container">
 
-<div id="filters">
+  <!-- ===== FILTER + TAX ROW ===== -->
+  <div class="filter-tax-wrapper">
 
-  <div class="filter active">
-    <i class="fa-solid fa-fire"></i>
-    <p>Trending</p>
-  </div>
+    <!-- FILTERS -->
+    <div id="filters">
+      
 
-  <div class="filter">
-    <i class="fa-solid fa-bed"></i>
-    <p>Rooms</p>
-  </div>
+      <div class="filter active">
+        <i class="fa-solid fa-fire"></i>
+        <p>Trending</p>
+      </div>
 
-  <div class="filter">
-    <i class="fa-solid fa-mountain"></i>
-    <p>Mountains</p>
-  </div>
+      <div class="filter">
+        <i class="fa-solid fa-bed"></i>
+        <p>Rooms</p>
+      </div>
 
-  <div class="filter">
-    <i class="fa-solid fa-water"></i>
-    <p>Beachfront</p>
-  </div>
+      <div class="filter">
+        <i class="fa-solid fa-mountain"></i>
+        <p>Mountains</p>
+      </div>
 
-  <div class="filter">
-    <i class="fa-solid fa-tree"></i>
-    <p>Forest</p>
-  </div>
+      <div class="filter">
+        <i class="fa-solid fa-water"></i>
+        <p>Beachfront</p>
+      </div>
 
-  <div class="filter">
-    <i class="fa-solid fa-city"></i>
-    <p>City</p>
-  </div>
+      <div class="filter">
+        <i class="fa-solid fa-tree"></i>
+        <p>Forest</p>
+      </div>
 
-  <div class="filter">
-    <i class="fa-solid fa-snowflake"></i>
-    <p>Arctic</p>
-  </div>
+      <div class="filter">
+        <i class="fa-solid fa-city"></i>
+        <p>City</p>
+      </div>
 
-  <div class="filter">
-    <i class="fa-solid fa-campground"></i>
-    <p>Camping</p>
-  </div>
+      <div class="filter">
+        <i class="fa-solid fa-campground"></i>
+        <p>Camping</p>
+      </div>
 
-  <div class="filter">
-    <i class="fa-solid fa-umbrella-beach"></i>
-    <p>Tropical</p>
-  </div>
+      <div class="filter">
+        <i class="fa-solid fa-umbrella-beach"></i>
+        <p>Tropical</p>
+      </div>
+      <div class="filter">
+  <i class="fa-solid fa-house"></i>
+  <p>Villas</p>
+</div>
 
-  <div class="filter">
-    <i class="fa-solid fa-house"></i>
-    <p>Villas</p>
-  </div>
+<div class="filter">
+  <i class="fa-solid fa-building"></i>
+  <p>Apartments</p>
+</div>
 
-  <div class="filter">
-    <i class="fa-solid fa-building"></i>
-    <p>Apartments</p>
-  </div>
+<div class="filter">
+  <i class="fa-solid fa-snowflake"></i>
+  <p>Arctic</p>
+</div>
 
-  <div class="filter">
-    <i class="fa-solid fa-igloo"></i>
-    <p>Unique</p>
-  </div>
+<div class="filter">
+  <i class="fa-solid fa-igloo"></i>
+  <p>Unique</p>
+</div>
 
+<div class="filter">
+  <i class="fa-solid fa-ship"></i>
+  <p>Boats</p>
+</div>
+
+<div class="filter">
+  <i class="fa-solid fa-tree-city"></i>
+  <p>Countryside</p>
+</div>
+
+<div class="filter">
+  <i class="fa-solid fa-person-swimming"></i>
+  <p>Pools</p>
+</div>
+
+<div class="filter">
+  <i class="fa-solid fa-tent"></i>
+  <p>Glamping</p>
+</div>
+
+<div class="filter">
+  <i class="fa-solid fa-castle"></i>
+  <p>Castles</p>
 </div>
 
 
-<form method="GET" action="/listings/new">
-  </form>
-<div class="row gx-2 gy-3 mt-4">
-  <% for (let listing of allListings) { %>
-    <div class="col-3">
-      <a href="/listings/<%= listing._id%>"  class = "listing-link" style="color: inherit;">
-        <div class="card h-100" style="height: 20rem;">
-          <img src="<%= listing.image.url %>" class="card-img-top" alt="<%= listing.title %>">
-          
-          <div class="card-img-overlay">  </div>
-          <div class="card-body">
-            <p class="card-text">
-              <b><%= listing.title %></b><br>
-              ₹ <%= Number(listing.price).toLocaleString("en-IN") %> / night <br>
-              <%= listing.country %>
-            </p>
-          </div>
-        </div>
-      </a>
     </div>
-  <% } %>
+
+    <!-- TAX TOGGLE -->
+    <div class="tax-toggle-box">
+      <p class="tax-label">Tax</p>
+
+      <div class="form-check form-switch m-0">
+        <input 
+          class="form-check-input" 
+          type="checkbox" 
+          id="taxToggle">
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ===== LISTINGS ===== -->
+  <div class="row gx-3 gy-4 mt-4">
+
+    <% for (let listing of allListings) { %>
+
+      <div class="col-lg-3 col-md-4 col-sm-6">
+
+        <a href="/listings/<%= listing._id %>" 
+           class="listing-link"
+           style="text-decoration:none; color:inherit;">
+
+          <div class="card listing-card h-100">
+
+            <img src="<%= listing.image.url %>">
+
+            <div class="card-body">
+
+              <p class="card-text">
+
+                <b><%= listing.title %></b><br>
+
+                ₹ 
+                <span class="base-price"
+                      data-price="<%= listing.price %>">
+                  <%= Number(listing.price)
+                      .toLocaleString("en-IN") %>
+                </span>
+                / night
+                <br>
+
+                <span class="tax-info">
+                  Included GST
+                </span>
+
+                <br>
+                <%= listing.country %>
+
+              </p>
+
+            </div>
+          </div>
+
+        </a>
+
+      </div>
+
+    <% } %>
+
+  </div>
+
 </div>
+
+<!-- ===== GST TOGGLE SCRIPT ===== -->
+<script>
+
+const toggle = document.getElementById("taxToggle");
+const prices = document.querySelectorAll(".base-price");
+const taxTexts = document.querySelectorAll(".tax-info");
+
+toggle.addEventListener("change", () => {
+
+  prices.forEach((priceEl, index) => {
+
+    const basePrice = Number(priceEl.dataset.price);
+
+    if(toggle.checked){
+
+      const gstPrice = basePrice + (basePrice * 0.18);
+
+      priceEl.innerText =
+        gstPrice.toLocaleString("en-IN");
+
+      taxTexts[index].style.display = "inline";
+
+    } else {
+
+      priceEl.innerText =
+        basePrice.toLocaleString("en-IN");
+
+      taxTexts[index].style.display = "none";
+    }
+
+  });
+
+});
+
+</script>
